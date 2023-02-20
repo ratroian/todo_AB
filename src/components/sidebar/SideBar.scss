@@ -1,8 +1,18 @@
 .list {
+	$self: &;
+
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	margin-bottom: 30px;
+
+	&__add-button {
+		opacity: 0.4;
+
+		&:hover {
+			opacity: 1;
+		}
+	}
 
 	li {
 		display: flex;
@@ -11,6 +21,26 @@
 		padding: 10px;
 		cursor: pointer;
 		margin-bottom: 5px;
+
+		&:hover #{$self}__remove-icon {
+			opacity: 0.2;
+		}
+
+		#{$self}__remove-icon {
+			opacity: 0;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+
+		p {
+			flex: 1;
+		}
+
+		&:hover {
+			background: #d7d7d7;
+		}
 
 		&.active {
 			background: #ffffff;
@@ -21,27 +51,14 @@
 		i {
 			margin-right: 10px;
 			display: inline-flex;
-
-			svg {
-				path {
-					fill: rgb(19, 19, 19);
-				}
-			}
 		}
-		.badge {
-			width: 18px;
-			height: 18px;
-			border-radius: 50%;
+	}
 
-			&--green {
-				background-color: #42b883;
-			}
-			&--blue {
-				background-color: #64c4ed;
-			}
-			&--pink {
-				background-color: #ffbbcc;
-			}
+	&__remove-icon {
+		opacity: 0;
+
+		&:hover {
+			opacity: 0.8;
 		}
 	}
 }

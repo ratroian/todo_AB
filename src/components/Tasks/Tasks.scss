@@ -1,0 +1,78 @@
+.tasks {
+	&__title-wrapper {
+		display: flex;
+		align-items: center;
+		border-bottom: 1px solid rgba($color: #00000039, $alpha: 0.1);
+		padding-bottom: 5px;
+		margin-bottom: 20px;
+
+		img {
+			padding-left: 20px;
+			cursor: pointer;
+			opacity: 0;
+
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+	&__title {
+		font-weight: bold;
+		font-size: 32px;
+		line-height: 40px;
+		color: #64c4ed;
+	}
+
+	&__item {
+		display: flex;
+		margin-bottom: 10px;
+	}
+
+	.checkbox {
+		display: flex;
+		margin-right: 10px;
+
+		:hover {
+			background-color: #f2f2f2;
+			border-color: #f2f2f2;
+			svg {
+				opacity: 1;
+				path {
+					stroke: #b3b3b3;
+				}
+			}
+		}
+
+		input {
+			display: none;
+		}
+		label {
+			cursor: pointer;
+			border: 2px solid #e8e8e8;
+			border-radius: 100%;
+			width: 20px;
+			height: 20px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			svg {
+				opacity: 0;
+			}
+		}
+
+		input:checked + label {
+			background-color: #4dd599;
+			border-color: #4dd599;
+			svg {
+				opacity: 1;
+				&:hover {
+					background-color: #4dd599;
+				}
+				path {
+					stroke: #ffffff;
+				}
+			}
+		}
+	}
+}
