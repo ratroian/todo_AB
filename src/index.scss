@@ -70,4 +70,8 @@ body {
 	&:active {
 		background-color: darken($color: #4dd599, $amount: 10%);
 	}
+
+	&:disabled {
+		background-color: #a0a0a0;
+	}
 }

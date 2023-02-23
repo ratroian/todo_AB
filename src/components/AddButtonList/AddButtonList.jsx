@@ -14,7 +14,6 @@ export const AddButtonList = ({ colors, onAdd }) => {
 	useEffect(() => {
 		if (Array.isArray(colors)) {
 			selectColor(colors[0].id);
-			console.log('props colors', colors);
 		}
 	}, [colors]);
 
@@ -43,6 +42,9 @@ export const AddButtonList = ({ colors, onAdd }) => {
 				const listObj = { ...data, color: { name: color } };
 				onAdd(listObj);
 				onClose();
+			})
+			.catch(() => {
+				alert('Ошибка запроса');
 			})
 			.finally(() => {
 				setLoading(false);

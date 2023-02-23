@@ -9,22 +9,44 @@ import { Tasks } from './components/Tasks/Tasks';
 export const App = () => {
 	const [lists, setLists] = useState(null);
 	const [colors, setColors] = useState(null);
+	const [activeItem, setActiveItem] = useState(null);
 
 	useEffect(() => {
 		axios
 			.get('http://localhost:3001/lists?_expand=color&_embed=tasks')
 			.then(({ data }) => {
 				setLists(data);
-				console.log('http://localhost:3001/lists?_expand=color', data);
 			});
 		axios.get('http://localhost:3001/colors').then(({ data }) => {
 			setColors(data);
-			console.log('http://localhost:3001/colors', data);
 		});
 	}, []);
 
 	const onAddList = (object) => {
 		const newList = [...lists, object];
+		setLists(newList);
+	};
+
+	const onAddTask = (listId, taskObject) => {
+		// const newList = [...lists, taskObject];
+		// setLists(newList);
+		console.log(listId, taskObject);
+		const newList = lists.map((item) => {
+			if (item.id === listId) {
+				item.tasks = [...item.tasks, taskObject];
+			}
+			return item;
+		});
+		setLists(newList);
+	};
+
+	const onEditListTitle = (id, title) => {
+		const newList = lists.map((item) => {
+			if (item.id === id) {
+				item.name = title;
+			}
+			return item;
+		});
 		setLists(newList);
 	};
 
@@ -34,6 +56,7 @@ export const App = () => {
 				<SidebarList
 					items={[
 						{
+							active: true,
 							icon: (
 								<svg
 									width='10'
@@ -60,11 +83,19 @@ export const App = () => {
 						setLists(newLists);
 					}}
 					isRemovable={true}
+					onClickItem={(item) => setActiveItem(item)}
+					activeItem={activeItem}
 				/>
 				<AddButtonList colors={colors} onAdd={onAddList} />
 			</div>
 			<div className='todo__tasks'>
-				{lists && <Tasks list={lists[1]} />}
+				{lists && activeItem && (
+					<Tasks
+						list={activeItem}
+						onAddTask={onAddTask}
+						onEditTitle={onEditListTitle}
+					/>
+				)}
 			</div>
 		</div>
 	);

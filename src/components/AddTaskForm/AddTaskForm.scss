@@ -1,0 +1,43 @@
+.tasks__form {
+	margin-top: 20px;
+	opacity: 0.4;
+	transition: opacity 0.15s ease-in-out;
+
+	&:hover {
+		opacity: 0.8;
+	}
+	&-new {
+		cursor: pointer;
+		opacity: 0.8;
+		&:hover {
+			opacity: 1;
+		}
+	}
+
+	&-block {
+		margin-top: 15px;
+	}
+
+	&-new {
+		display: flex;
+		align-items: center;
+	}
+
+	span {
+		font-size: 16px;
+		margin-left: 15px;
+	}
+
+	.popup__button--grey {
+		background-color: #f4f6f8;
+		color: #9c9c9c;
+		margin-left: 20px;
+
+		&:hover {
+			background: darken($color: #f4f6f8, $amount: 5%);
+		}
+		&:active {
+			background: darken($color: #f4f6f8, $amount: 10%);
+		}
+	}
+}
