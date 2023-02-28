@@ -38,8 +38,12 @@ export const AddButtonList = ({ colors, onAdd }) => {
 			.then(({ data }) => {
 				const color = colors.filter(
 					(color) => color.id === selectedColor
-				)[0].name;
-				const listObj = { ...data, color: { name: color } };
+				)[0];
+				const listObj = {
+					...data,
+					color: { name: color.name, hex: color.hex },
+					tasks: [],
+				};
 				onAdd(listObj);
 				onClose();
 			})

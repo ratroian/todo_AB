@@ -4,8 +4,18 @@ import editSvg from '../../assets/img/edit.svg';
 
 import './Tasks.scss';
 import { AddTaskForm } from '../AddTaskForm/AddTaskForm';
+import { Task } from '../Task/Task';
+import { Link } from 'react-router-dom';
 
-export const Tasks = ({ list, onEditTitle, onAddTask }) => {
+export const Tasks = ({
+	list,
+	onEditTitle,
+	onAddTask,
+	withoutEmpty,
+	onRemoveTask,
+	onEditTask,
+	onCompleteTask,
+}) => {
 	const editTitle = () => {
 		console.log();
 		const newTitle = window.prompt('Название списка', list.name);
@@ -24,7 +34,9 @@ export const Tasks = ({ list, onEditTitle, onAddTask }) => {
 	return (
 		<div className='tasks'>
 			<div className='tasks__title-wrapper'>
-				<h2 className='tasks__title'>{list.name}</h2>
+				<h2 className='tasks__title' style={{ color: list.color.hex }}>
+					{list.name}
+				</h2>
 				<img
 					src={editSvg}
 					alt='edit'
@@ -34,38 +46,22 @@ export const Tasks = ({ list, onEditTitle, onAddTask }) => {
 				/>
 			</div>
 			<ul className='tasks__list'>
-				{!list.tasks.length && (
+				{!withoutEmpty && list.tasks && !list.tasks.length && (
 					<h3 className='tasks__empty'>Задачи отсутствуют</h3>
 				)}
-				{list.tasks.map((task) => {
-					return (
-						<li key={task.id} className='tasks__item'>
-							<div className='checkbox'>
-								<input id={`task-${task.id}`} type='checkbox' />
-								<label htmlFor={`task-${task.id}`}>
-									<svg
-										width='11'
-										height='8'
-										viewBox='0 0 11 8'
-										fill='none'
-										xmlns='http://www.w3.org/2000/svg'
-									>
-										<path
-											d='M9.29999 1.20001L3.79999 6.70001L1.29999 4.20001'
-											stroke='black'
-											strokeWidth='1.5'
-											strokeLinecap='round'
-											strokeLinejoin='round'
-										/>
-									</svg>
-								</label>
-							</div>
-							<input readOnly value={task.text} />
-						</li>
-					);
-				})}
+				{list.tasks &&
+					list.tasks.map((task) => (
+						<Task
+							{...task}
+							key={task.id}
+							onRemove={onRemoveTask}
+							onEdit={onEditTask}
+							list={list}
+							onComplete={onCompleteTask}
+						/>
+					))}
 			</ul>
-			<AddTaskForm list={list} onAddTask={onAddTask} />
+			<AddTaskForm key={list.id} list={list} onAddTask={onAddTask} />
 		</div>
 	);
 };
